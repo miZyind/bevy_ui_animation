@@ -78,7 +78,7 @@ jobs:
           toolchain: stable
           override: true
           profile: minimal
-      - run: cargo install cargo-bump
+      - run: cargo install cargo-bump --force
       - uses: cycjimmy/semantic-release-action@v3
         with:
           extra_plugins: |
