@@ -11,6 +11,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: |
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
             ~/.cargo/bin/
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
@@ -43,6 +45,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: |
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
             ~/.cargo/bin/
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
@@ -67,16 +71,20 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: |
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
             ~/.cargo/bin/
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-release-${{ hashFiles('**/Cargo.lock') }}
-      - uses: actions-rs/install@v0.1
+      - uses: actions-rs/toolchain@v1
         with:
-          crate: cargo-bump
-          use-tool-cache: true
+          toolchain: stable
+          override: true
+          profile: minimal
+      - run: cargo install cargo-bump
       - uses: cycjimmy/semantic-release-action@v3
         with:
           extra_plugins: |
