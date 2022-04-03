@@ -1,0 +1,36 @@
+[advisories]
+db-path = "~/.cargo/advisory-db"
+db-urls = ["https://github.com/rustsec/advisory-db"]
+vulnerability = "deny"
+unmaintained = "deny"
+yanked = "deny"
+notice = "deny"
+
+[licenses]
+unlicensed = "deny"
+allow = ["MIT", "Apache-2.0", "CC0-1.0"]
+copyleft = "deny"
+allow-osi-fsf-free = "neither"
+default = "deny"
+confidence-threshold = 0.8
+exceptions = [
+    { allow = ["BSD-3-Clause"], name = "instant", version = "*" },
+    { allow = ["BSD-3-Clause"], name = "pp-rs", version = "*" },
+    { allow = ["ISC"], name = "libloading", version = "*" },
+    { allow = ["Zlib"], name = "slotmap", version = "*" },
+]
+
+[[licenses.clarify]]
+name = "stretch"
+expression = "MIT"
+license-files = []
+
+[bans]
+multiple-versions = "deny"
+wildcards = "allow"
+highlight = "all"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
