@@ -3,11 +3,21 @@ name = "bevy_ui_animation"
 version = "0.0.0"
 authors = ["miZyind <mizyind@gmail.com>"]
 edition = "2021"
-description = "A GSAP-like animation plugin for Bevy"
+description = "A GSAP-like animation plugin for Bevy UI"
 homepage = "https://github.com/miZyind/bevy_ui_animation"
 repository = "https://github.com/miZyind/bevy_ui_animation"
 license = "MIT"
 keywords = ["game", "bevy", "bevy_ui", "animation", "easing"]
 
 [dependencies]
-bevy = { version = "0.6.1", default-features = false, features = ["bevy_ui"] }
+bevy = { version = "0.6.1", default-features = false, features = [
+  "bevy_core_pipeline",
+  "bevy_render",
+  "bevy_sprite",
+  "bevy_text",
+  "bevy_ui",
+  "bevy_winit",
+] }
+
+[[example]]
+name = "all"

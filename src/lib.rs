@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 pub use ease::Ease;
+pub use plugin::AnimationPlugin;
 
 mod ease;
 mod lerp;
