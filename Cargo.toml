@@ -16,8 +16,8 @@ bevy = { version = "0.6.1", default-features = false, features = [
   "bevy_sprite",
   "bevy_text",
   "bevy_ui",
-  "bevy_winit",
 ] }
 
 [[example]]
 name = "all"
+required-features = ["bevy/bevy_winit"]
