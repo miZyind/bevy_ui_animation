@@ -79,7 +79,7 @@ mod tests {
             size: Size::new(Val::Px(0.0), Val::Px(0.0)),
             ..Default::default()
         };
-        let ref target = Style {
+        let target = &Style {
             position: Rect::all(Val::Px(10.0)),
             margin: Rect::all(Val::Px(10.0)),
             padding: Rect::all(Val::Px(10.0)),
@@ -113,7 +113,7 @@ mod tests {
     #[test]
     fn color() {
         let source = UiColor::default();
-        let ref target = UiColor(Vec4::default().into());
+        let target = &UiColor(Vec4::default().into());
 
         assert_eq!(
             source.lerp(target, 0.0).0,
@@ -132,7 +132,7 @@ mod tests {
     #[test]
     fn transform() {
         let source = Transform::default();
-        let ref target = Transform {
+        let target = &Transform {
             translation: Vec3::new(1.0, 2.0, 3.0),
             rotation: Quat::from_rotation_z(100_f32.to_radians()),
             scale: Vec3::new(2.0, 3.0, 4.0),
