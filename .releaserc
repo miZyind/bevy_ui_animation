@@ -7,7 +7,7 @@
       "@semantic-release/exec",
       {
         "prepareCmd": "cargo bump ${nextRelease.version}",
-        "publishCmd": "cargo publish --dry-run --allow-dirty && echo '{\"name\":\"${nextRelease.name}\",\"url\":\"https://crates.io/crates/${nextRelease.name}\"}'"
+        "publishCmd": "cargo publish --dry-run"
       }
     ],
     [
@@ -16,7 +16,7 @@
         "assets": [
           "Cargo.toml"
         ],
-        "message": "chore(release): v${nextRelease.version} [skip ci]"
+        "message": "v${nextRelease.version}\n\n[skip ci]"
       }
     ]
   ]

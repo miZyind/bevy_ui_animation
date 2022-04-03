@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: EmbarkStudios/cargo-deny-action@v1
       - uses: actions/cache@v3
         with:
           path: |
@@ -24,6 +23,7 @@ jobs:
           override: true
           profile: minimal
           components: rustfmt, clippy
+      - uses: EmbarkStudios/cargo-deny-action@v1
       - run: cargo fmt --all --check
       - run: cargo clippy --no-deps --all-targets --all-features -- -D warnings
   test:
@@ -73,12 +73,10 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-release-${{ hashFiles('**/Cargo.lock') }}
-      - uses: actions-rs/toolchain@v1
+      - uses: actions-rs/install@v0.1
         with:
-          toolchain: stable
-          override: true
-          profile: minimal
-      - run: cargo install cargo-bump --force
+          crate: cargo-bump
+          use-tool-cache: true
       - uses: cycjimmy/semantic-release-action@v3
         with:
           extra_plugins: |
@@ -87,3 +85,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+          GIT_AUTHOR_NAME: ${{ github.event.pusher.name }}
+          GIT_AUTHOR_EMAIL: ${{ github.event.pusher.email }}
+          GIT_COMMITTER_NAME: ${{ github.event.pusher.name }}
+          GIT_COMMITTER_EMAIL: ${{ github.event.pusher.email }}
