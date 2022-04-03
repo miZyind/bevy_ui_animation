@@ -37,16 +37,19 @@ To use this plugin, the first step is to add a dependency to your `Cargo.toml`:
 bevy_ui_animation = "1.0.0"
 ```
 
-Add the `AnimationPlugin` to your App in `main.rs`:
+Add the `AnimationPlugin` to your `main.rs`:
 
 ```rust
+use bevy::prelude::*;
+use bevy_ui_animation::*;
+
 App::new()
     .add_plugins(DefaultPlugins)
     .add_plugin(AnimationPlugin)
     .run();
 ```
 
-Animate a Bevy UI bundle:
+Animate a bundle:
 
 ```rust
 use bevy::prelude::*;
