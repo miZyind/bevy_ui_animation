@@ -14,20 +14,6 @@ A [GSAP-like](https://greensock.com/gsap) animation plugin for Bevy UI.
 - 🚧 Timeline support
 - 🚧 Bevy event support
 
-## 📜 Animatable Components
-
-| Name      | Field       |
-| --------- | ----------- |
-| Style     | position    |
-|           | margin      |
-|           | padding     |
-|           | border      |
-|           | size        |
-| UiColor   | color       |
-| Transform | translation |
-|           | rotation    |
-|           | scale       |
-
 ## 🔮 Usage
 
 To use this plugin, the first step is to add a dependency to your `Cargo.toml`:
@@ -89,7 +75,56 @@ Preview:
 
 ![preview](https://github.com/miZyind/bevy_ui_animation/blob/master/examples/all.gif)
 
-## 🙏 Thanks To
+## 📜 Animatable Components
+
+| Name      | Field       |
+| --------- | ----------- |
+| Style     | position    |
+|           | margin      |
+|           | padding     |
+|           | border      |
+|           | size        |
+| UiColor   | color       |
+| Transform | translation |
+|           | rotation    |
+|           | scale       |
+
+## 📈 Ease
+
+| Name         | 0%         | 50%        | 100%      |
+| ------------ | ---------- | ---------- | --------- |
+| BackIn       | `0.0`      | `-0.375`   | `1.0`     |
+| BackInOut    | `0.0`      | `0.499`    | `1.0`     |
+| BackOut      | `-1.19e-7` | `1.375`    | `1.0`     |
+| BounceIn     | `0.0`      | `0.281`    | `1.0`     |
+| BounceInOut  | `0.0`      | `0.5`      | `1.0`     |
+| BounceOut    | `0.0`      | `0.718`    | `1.0`     |
+| ElasticIn    | `0.0`      | `-4.29e-8` | `2.74e-6` |
+| ElasticInOut | `0.0`      | `0.099`    | `1.0`     |
+| ElasticOut   | `0.099`    | `1.0`      | `1.0`     |
+| ExpoIn       | `0.0`      | `0.031`    | `1.0`     |
+| ExpoInOut    | `0.0`      | `0.5`      | `1.0`     |
+| ExpoOut      | `0.0`      | `0.968`    | `1.0`     |
+| Linear       | `0.0`      | `0.5`      | `1.0`     |
+| PowerIn      | `0.0`      | `0.25`     | `1.0`     |
+| PowerInOut   | `0.0`      | `0.5`      | `1.0`     |
+| PowerOut     | `0.0`      | `0.75`     | `1.0`     |
+
+## ✳️ Vars
+
+| Field     | Type                | Default   | Description                                                                 |
+| --------- | ------------------- | --------- | --------------------------------------------------------------------------- |
+| style     | `Option<Style>`     | `None`    | A Bevy Style component containing the destination fields to animate to.     |
+| color     | `Option<UiColor>`   | `None`    | A Bevy UiColor component containing the destination fields to animate to.   |
+| transform | `Option<Transform>` | `None`    | A Bevy Transform component containing the destination fields to animate to. |
+| delay     | `f32`               | `0.0`     | Amount of delay before the animation should begin (in seconds).             |
+| duration  | `f32`               | `0.5`     | The duration of the animation (in seconds).                                 |
+| ease      | `Ease`              | `ExpoOut` | The ease function to control the rate of change during the animation.       |
+| repeat    | `bool`              | `false`   | If `true`, the animation will keep repeating.                               |
+| yoyo      | `bool`              | `false`   | If `true`, the animation will run in the opposite direction once finished.  |
+| paused    | `bool`              | `false`   | If `true`, the animation will pause itself immediately upon creation.       |
+
+## 🙏 Thanks
 
 - @djeedai for [bevy_tweening](https://crates.io/crates/bevy_tweening)
 - @mockersf for [bevy_easings](https://crates.io/crates/bevy_easings)
