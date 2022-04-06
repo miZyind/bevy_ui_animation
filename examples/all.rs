@@ -3,6 +3,10 @@ use bevy_ui_animation::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     App::new()
+        .insert_resource(WindowDescriptor {
+            title: "All".to_string(),
+            ..Default::default()
+        })
         .add_plugins(DefaultPlugins)
         .add_plugin(AnimationPlugin)
         .add_startup_system(setup)
