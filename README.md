@@ -9,8 +9,7 @@ A [GSAP-like](https://greensock.com/gsap) animation plugin for Bevy UI.
 
 ## 🌌 Features
 
-- ✅ Animate NodeBundle, ImageBundle, ButtonBundle
-- 🚧 Animate TextBundle
+- ✅ Animate NodeBundle, ImageBundle, TextBundle, ButtonBundle
 - 🚧 Timeline support
 - 🚧 Bevy event support
 
@@ -89,6 +88,7 @@ cargo run --example all --features="bevy/bevy_winit"
 | color              | `Option<UiColor>`           | `None`    | A Bevy UiColor component containing the destination fields to animate to.   |
 | transform          | `Option<Transform>`         | `None`    | A Bevy Transform component containing the destination fields to animate to. |
 | transform_rotation | `Option<TransformRotation>` | `None`    | A struct to rotate a Bevy Transform component around a given fixed axis.    |
+| text_color         | `Option<TextColor>`         | `None`    | A struct to lerp the color of a Bevy Text component                         |
 | delay              | `f32`                       | `0.0`     | Amount of delay before the animation should begin (in seconds).             |
 | duration           | `f32`                       | `0.5`     | The duration of the animation (in seconds).                                 |
 | ease               | `Ease`                      | `ExpoOut` | The ease function to control the rate of change during the animation.       |
@@ -98,17 +98,18 @@ cargo run --example all --features="bevy/bevy_winit"
 
 ## 📜 Animatable Components
 
-| Name      | Field       |
-| --------- | ----------- |
-| Style     | position    |
-|           | margin      |
-|           | padding     |
-|           | border      |
-|           | size        |
-| UiColor   | color       |
-| Transform | translation |
-|           | rotation    |
-|           | scale       |
+| Name      | Field            |
+| --------- | ---------------- |
+| Style     | position         |
+|           | margin           |
+|           | padding          |
+|           | border           |
+|           | size             |
+| UiColor   | color            |
+| Transform | translation      |
+|           | rotation         |
+|           | scale            |
+| Text      | TextStyle::color |
 
 ## 📈 Ease
 
