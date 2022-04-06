@@ -14,16 +14,17 @@ impl Plugin for AnimationPlugin {
 fn animation_system(
     time: Res<Time>,
     mut commands: Commands,
-    mut source: Local<HashMap<u32, (Style, UiColor, Transform)>>,
+    mut source: Local<HashMap<u32, (Style, Option<UiColor>, Transform, Option<Text>)>>,
     mut query: Query<(
         Entity,
         &mut Style,
-        &mut UiColor,
+        Option<&mut UiColor>,
         &mut Transform,
+        Option<&mut Text>,
         &mut Animation,
     )>,
 ) {
-    for (entity, mut style, mut color, mut transform, ref mut animation) in query.iter_mut() {
+    for (entity, mut style, color, mut transform, text, ref mut animation) in query.iter_mut() {
         if !animation.vars.paused {
             animation.delay_timer.tick(time.delta());
             if animation.delay_timer.finished() {
@@ -35,15 +36,29 @@ fn animation_system(
                         animation.timer.percent_left()
                     };
                     let delta = progress.delta(animation.vars.ease);
-                    let entry =
-                        source
-                            .entry(entity.id())
-                            .or_insert((style.clone(), *color, *transform));
+                    let entry = source.entry(entity.id()).or_insert((
+                        style.clone(),
+                        if let Some(ref color) = color {
+                            Some((**color).clone())
+                        } else {
+                            None
+                        },
+                        *transform,
+                        if let Some(ref text) = text {
+                            Some((**text).clone())
+                        } else {
+                            None
+                        },
+                    ));
                     if let Some(ref target) = animation.vars.style {
                         *style = entry.0.lerp(target, delta);
                     }
                     if let Some(ref target) = animation.vars.color {
-                        *color = entry.1.lerp(target, delta);
+                        if let Some(mut color) = color {
+                            if let Some(source) = entry.1 {
+                                *color = source.lerp(target, delta);
+                            }
+                        }
                     }
                     if let Some(ref target) = animation.vars.transform {
                         *transform = entry.2.lerp(target, delta);
@@ -53,6 +68,17 @@ fn animation_system(
                         let target_angle = target.degree.to_radians();
                         let delta_angle = source_angle + (target_angle - source_angle) * delta;
                         transform.rotation = Quat::from_axis_angle(target.axis, delta_angle);
+                    }
+                    if let Some(ref text_color) = animation.vars.text_color {
+                        if let Some(mut text) = text {
+                            if let Some(ref source) = entry.3 {
+                                let target: Vec4 = text_color.target.into();
+                                let source: Vec4 =
+                                    source.sections[text_color.section].style.color.into();
+                                let value = source.lerp(target, delta);
+                                text.sections[text_color.section].style.color = value.into();
+                            }
+                        }
                     }
                 }
                 if animation.timer.just_finished() {

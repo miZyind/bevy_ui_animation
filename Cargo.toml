@@ -25,3 +25,7 @@ required-features = ["bevy/bevy_winit"]
 [[example]]
 name = "rotation"
 required-features = ["bevy/bevy_winit"]
+
+[[example]]
+name = "text"
+required-features = ["bevy/bevy_winit"]

@@ -4,7 +4,7 @@ use bevy_ui_animation::*;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     App::new()
         .insert_resource(WindowDescriptor {
-            title: "Rotation".to_string(),
+            title: "Text".to_string(),
             ..Default::default()
         })
         .add_plugins(DefaultPlugins)
@@ -16,7 +16,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn setup(mut commands: Commands) {
+fn setup(mut commands: Commands, assets: Res<AssetServer>) {
     commands.spawn_bundle(UiCameraBundle::default());
     commands
         .spawn_bundle(NodeBundle {
@@ -31,29 +31,28 @@ fn setup(mut commands: Commands) {
         })
         .with_children(|parent| {
             parent
-                .spawn_bundle(NodeBundle {
-                    style: Style {
-                        size: Size::new(Val::Px(100.0), Val::Px(50.0)),
-                        ..Default::default()
-                    },
-                    color: UiColor(Color::RED),
+                .spawn_bundle(TextBundle {
+                    style: Style::default(),
+                    text: Text::with_section(
+                        "Hello, World!",
+                        TextStyle {
+                            font: assets.load("fonts/FiraMono-Regular.ttf"),
+                            font_size: 24.0,
+                            color: Color::BLUE,
+                        },
+                        Default::default(),
+                    ),
                     ..Default::default()
                 })
                 .insert(Animation::new(Vars {
-                    transform_rotation: Some(TransformRotation::z(360.0)),
+                    text_color: Some(TextColor {
+                        target: Color::RED,
+                        section: 0,
+                    }),
                     duration: 2.0,
                     repeat: true,
+                    yoyo: true,
                     ..Default::default()
-                }))
-                .with_children(|parent| {
-                    parent.spawn_bundle(NodeBundle {
-                        style: Style {
-                            size: Size::new(Val::Px(50.0), Val::Px(50.0)),
-                            ..Default::default()
-                        },
-                        color: UiColor(Color::BLUE),
-                        ..Default::default()
-                    });
-                });
+                }));
         });
 }

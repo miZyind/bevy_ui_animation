@@ -11,6 +11,7 @@ pub struct Vars {
     pub color: Option<UiColor>,
     pub transform: Option<Transform>,
     pub transform_rotation: Option<TransformRotation>,
+    pub text_color: Option<TextColor>,
     pub delay: f32,
     pub duration: f32,
     pub ease: Ease,
@@ -25,6 +26,7 @@ impl Default for Vars {
             color: None,
             transform: None,
             transform_rotation: None,
+            text_color: None,
             delay: 0.0,
             duration: 0.5,
             ease: ease::Ease::ExpoOut,
@@ -58,6 +60,11 @@ impl TransformRotation {
             degree,
         }
     }
+}
+
+pub struct TextColor {
+    pub target: Color,
+    pub section: usize,
 }
 
 #[derive(Component)]
