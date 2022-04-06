@@ -36,8 +36,28 @@ impl Default for Vars {
 }
 
 pub struct TransformRotation {
-    pub axis: Vec3,
-    pub degree: f32,
+    axis: Vec3,
+    degree: f32,
+}
+impl TransformRotation {
+    pub fn x(degree: f32) -> Self {
+        Self {
+            axis: Vec3::X,
+            degree,
+        }
+    }
+    pub fn y(degree: f32) -> Self {
+        Self {
+            axis: Vec3::Y,
+            degree,
+        }
+    }
+    pub fn z(degree: f32) -> Self {
+        Self {
+            axis: Vec3::Z,
+            degree,
+        }
+    }
 }
 
 #[derive(Component)]

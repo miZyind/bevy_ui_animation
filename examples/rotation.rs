@@ -42,10 +42,7 @@ fn setup(mut commands: Commands) {
                     ..Default::default()
                 })
                 .insert(Animation::new(Vars {
-                    transform_rotation: Some(TransformRotation {
-                        axis: Vec3::Z,
-                        degree: 360.0,
-                    }),
+                    transform_rotation: Some(TransformRotation::z(360.0)),
                     duration: 2.0,
                     repeat: true,
                     ..Default::default()
