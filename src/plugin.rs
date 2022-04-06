@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{hash_map::Entry, HashMap};
 
 use bevy::prelude::*;
 
@@ -48,6 +48,12 @@ fn animation_system(
                     if let Some(ref target) = animation.vars.transform {
                         *transform = entry.2.lerp(target, delta);
                     }
+                    if let Some(ref target) = animation.vars.transform_rotation {
+                        let source_angle = entry.2.rotation.to_axis_angle().1;
+                        let target_angle = target.degree.to_radians();
+                        let delta_angle = source_angle + (target_angle - source_angle) * delta;
+                        transform.rotation = Quat::from_axis_angle(target.axis, delta_angle);
+                    }
                 }
                 if animation.timer.just_finished() {
                     if animation.vars.repeat {
@@ -57,6 +63,9 @@ fn animation_system(
                         animation.timer.reset();
                     } else {
                         commands.entity(entity).remove::<Animation>();
+                        if let Entry::Occupied(o) = source.entry(entity.id()) {
+                            o.remove_entry();
+                        }
                     }
                 }
             }
