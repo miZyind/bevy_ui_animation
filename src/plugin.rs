@@ -11,18 +11,21 @@ impl Plugin for AnimationPlugin {
     }
 }
 
+type SourceMap = HashMap<u32, (Style, Option<UiColor>, Transform, Option<Text>)>;
+type Targets<'a> = (
+    Entity,
+    &'a mut Style,
+    Option<&'a mut UiColor>,
+    &'a mut Transform,
+    Option<&'a mut Text>,
+    &'a mut Animation,
+);
+
 fn animation_system(
     time: Res<Time>,
     mut commands: Commands,
-    mut source: Local<HashMap<u32, (Style, Option<UiColor>, Transform, Option<Text>)>>,
-    mut query: Query<(
-        Entity,
-        &mut Style,
-        Option<&mut UiColor>,
-        &mut Transform,
-        Option<&mut Text>,
-        &mut Animation,
-    )>,
+    mut source: Local<SourceMap>,
+    mut query: Query<Targets>,
 ) {
     for (entity, mut style, color, mut transform, text, ref mut animation) in query.iter_mut() {
         if !animation.vars.paused {
@@ -38,17 +41,9 @@ fn animation_system(
                     let delta = progress.delta(animation.vars.ease);
                     let entry = source.entry(entity.id()).or_insert((
                         style.clone(),
-                        if let Some(ref color) = color {
-                            Some((**color).clone())
-                        } else {
-                            None
-                        },
+                        color.as_ref().map(|color| **color),
                         *transform,
-                        if let Some(ref text) = text {
-                            Some((**text).clone())
-                        } else {
-                            None
-                        },
+                        text.as_ref().map(|text| (**text).clone()),
                     ));
                     if let Some(ref target) = animation.vars.style {
                         *style = entry.0.lerp(target, delta);
