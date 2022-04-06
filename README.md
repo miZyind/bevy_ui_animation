@@ -83,17 +83,18 @@ cargo run --example all --features="bevy/bevy_winit"
 
 ## ✳️ Vars
 
-| Field     | Type                | Default   | Description                                                                 |
-| --------- | ------------------- | --------- | --------------------------------------------------------------------------- |
-| style     | `Option<Style>`     | `None`    | A Bevy Style component containing the destination fields to animate to.     |
-| color     | `Option<UiColor>`   | `None`    | A Bevy UiColor component containing the destination fields to animate to.   |
-| transform | `Option<Transform>` | `None`    | A Bevy Transform component containing the destination fields to animate to. |
-| delay     | `f32`               | `0.0`     | Amount of delay before the animation should begin (in seconds).             |
-| duration  | `f32`               | `0.5`     | The duration of the animation (in seconds).                                 |
-| ease      | `Ease`              | `ExpoOut` | The ease function to control the rate of change during the animation.       |
-| repeat    | `bool`              | `false`   | If `true`, the animation will keep repeating.                               |
-| yoyo      | `bool`              | `false`   | If `true`, the animation will run in the opposite direction once finished.  |
-| paused    | `bool`              | `false`   | If `true`, the animation will pause itself immediately upon creation.       |
+| Field              | Type                        | Default   | Description                                                                 |
+| ------------------ | --------------------------- | --------- | --------------------------------------------------------------------------- |
+| style              | `Option<Style>`             | `None`    | A Bevy Style component containing the destination fields to animate to.     |
+| color              | `Option<UiColor>`           | `None`    | A Bevy UiColor component containing the destination fields to animate to.   |
+| transform          | `Option<Transform>`         | `None`    | A Bevy Transform component containing the destination fields to animate to. |
+| transform_rotation | `Option<TransformRotation>` | `None`    | A struct to rotate a Bevy Transform component around a given fixed axis.    |
+| delay              | `f32`                       | `0.0`     | Amount of delay before the animation should begin (in seconds).             |
+| duration           | `f32`                       | `0.5`     | The duration of the animation (in seconds).                                 |
+| ease               | `Ease`                      | `ExpoOut` | The ease function to control the rate of change during the animation.       |
+| repeat             | `bool`                      | `false`   | If `true`, the animation will keep repeating.                               |
+| yoyo               | `bool`                      | `false`   | If `true`, the animation will run in the opposite direction once finished.  |
+| paused             | `bool`                      | `false`   | If `true`, the animation will pause itself immediately upon creation.       |
 
 ## 📜 Animatable Components
 
