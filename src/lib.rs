@@ -45,19 +45,19 @@ impl TransformRotation {
     pub fn x(degree: f32) -> Self {
         Self {
             axis: Vec3::X,
-            degree,
+            degree: degree * -1.0,
         }
     }
     pub fn y(degree: f32) -> Self {
         Self {
             axis: Vec3::Y,
-            degree,
+            degree: degree * -1.0,
         }
     }
     pub fn z(degree: f32) -> Self {
         Self {
             axis: Vec3::Z,
-            degree,
+            degree: degree * -1.0,
         }
     }
 }
