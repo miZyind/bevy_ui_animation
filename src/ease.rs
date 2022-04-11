@@ -125,33 +125,16 @@ impl Delta for f32 {
                 }
             }
             Ease::Linear => clamp(self),
-            Ease::PowerIn => {
-                if self <= 0.0 {
-                    0.0
-                } else {
-                    self.powf(2.0)
-                }
-            }
+            Ease::PowerIn => clamp(self).powf(2.0),
             Ease::PowerInOut => {
-                if self <= 0.0 {
-                    return 0.0;
-                }
-                if self >= 1.0 {
-                    return 1.0;
-                }
-                if self < 0.5 {
-                    (self * 2.0).powf(2.0) / 2.0
+                let p = clamp(self);
+                if p < 0.5 {
+                    2.0 * p * p
                 } else {
-                    1.0 - (2.0 * (1.0 - self)).powf(2.0) / 2.0
+                    (-2.0 * p * p) + (4.0 * p) - 1.0
                 }
             }
-            Ease::PowerOut => {
-                if self >= 1.0 {
-                    1.0
-                } else {
-                    1.0 - (1.0 - self).powf(2.0)
-                }
-            }
+            Ease::PowerOut => -(clamp(self) * (clamp(self) - 2.0)),
         }
     }
 }
