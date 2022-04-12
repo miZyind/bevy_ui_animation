@@ -93,6 +93,10 @@ impl Animation {
             vars,
         }
     }
+    /// Gets the animation's paused state which indicates whether or not the animation is currently paused.
+    pub fn paused(&self) -> bool {
+        self.vars.paused
+    }
     /// Pauses the instance.
     pub fn pause(&mut self) {
         self.vars.paused = true;
