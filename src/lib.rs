@@ -38,22 +38,27 @@ impl Default for Vars {
 }
 
 pub struct TransformRotation {
+    /// The normalized rotation axis.
     axis: Vec3,
+    /// Target value of the rotation degree.
     degree: f32,
 }
 impl TransformRotation {
+    /// Rotates a [`Transform`] component around its local X axis.
     pub fn x(degree: f32) -> Self {
         Self {
             axis: Vec3::X,
             degree: degree * -1.0,
         }
     }
+    /// Rotates a [`Transform`] component around its local Y axis.
     pub fn y(degree: f32) -> Self {
         Self {
             axis: Vec3::Y,
             degree: degree * -1.0,
         }
     }
+    /// Rotates a [`Transform`] component around its local Z axis.
     pub fn z(degree: f32) -> Self {
         Self {
             axis: Vec3::Z,
@@ -61,9 +66,11 @@ impl TransformRotation {
         }
     }
 }
-
+/// Manipulates the color field of a section of a [`Text`] component.
 pub struct TextColor {
+    /// Target color.
     pub target: Color,
+    /// Index of the text section in the [`Text`] component.
     pub section: usize,
 }
 
@@ -75,6 +82,7 @@ pub struct Animation {
     vars: Vars,
 }
 impl Animation {
+    /// Create a new animation.
     pub fn new(vars: Vars) -> Self {
         Self {
             timer: Timer::from_seconds(vars.duration, false),
@@ -82,5 +90,13 @@ impl Animation {
             direction: 1,
             vars,
         }
+    }
+    /// Pauses the instance.
+    pub fn pause(&mut self) {
+        self.vars.paused = true;
+    }
+    /// Begins playing forward from wherever the playhead currently is.
+    pub fn play(&mut self) {
+        self.vars.paused = false;
     }
 }
