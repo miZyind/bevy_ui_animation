@@ -1,8 +1,10 @@
 use bevy::prelude::*;
 pub use ease::Ease;
+pub use event::CompleteEvent;
 pub use plugin::AnimationPlugin;
 
 mod ease;
+mod event;
 mod lerp;
 mod plugin;
 

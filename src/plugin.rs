@@ -2,7 +2,7 @@ use std::collections::{hash_map::Entry, HashMap};
 
 use bevy::prelude::*;
 
-use crate::{ease::Delta, lerp::Lerp, Animation};
+use crate::{ease::Delta, lerp::Lerp, Animation, CompleteEvent};
 
 pub struct AnimationPlugin;
 impl Plugin for AnimationPlugin {
@@ -26,6 +26,7 @@ fn animation_system(
     mut commands: Commands,
     mut source: Local<SourceMap>,
     mut query: Query<Targets>,
+    mut complete_event_writer: EventWriter<CompleteEvent>,
 ) {
     for (entity, mut style, color, mut transform, text, ref mut animation) in query.iter_mut() {
         if !animation.vars.paused {
@@ -88,6 +89,7 @@ fn animation_system(
                             o.remove_entry();
                         }
                     }
+                    complete_event_writer.send(CompleteEvent { entity });
                 }
             }
         }
