@@ -7,7 +7,8 @@ use crate::{ease::Delta, lerp::Lerp, Animation, CompleteEvent};
 pub struct AnimationPlugin;
 impl Plugin for AnimationPlugin {
     fn build(&self, app: &mut App) {
-        app.add_system(animation_system);
+        app.add_event::<CompleteEvent>()
+            .add_system(animation_system);
     }
 }
 
