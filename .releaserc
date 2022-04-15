@@ -6,7 +6,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "cargo bump ${nextRelease.version}",
+        "prepareCmd": "perl -pi -e 's/^version = \"(.*)\"$/version = \"${nextRelease.version}\"/g;' Cargo.toml",
         "publishCmd": "cargo publish --dry-run"
       }
     ],
