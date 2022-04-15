@@ -1,6 +1,6 @@
 [package]
 name = "bevy_ui_animation"
-version = "0.0.0"
+version = "1.0.0"
 authors = ["miZyind <mizyind@gmail.com>"]
 edition = "2021"
 description = "A GSAP-like animation plugin for Bevy UI"
